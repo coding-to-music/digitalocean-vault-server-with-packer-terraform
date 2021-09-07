@@ -1,3 +1,6 @@
+# packer
+variables.json
+
 # terraform
 **/.terraform/*
 *.tfstate
