@@ -1,12 +1,12 @@
-variable "do_token" {
-}
+# variable "do_token" {
+# }
 
-variable "ssh_fingerprint" {
-}
+# variable "ssh_fingerprint" {
+# }
 
-provider "digitalocean" {
-  token = var.do_token
-}
+# provider "digitalocean" {
+#   token = var.do_token
+# }
 
 # create various droplets
 resource "digitalocean_droplet" "multi-01" {

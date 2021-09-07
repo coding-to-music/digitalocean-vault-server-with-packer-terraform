@@ -17,6 +17,7 @@ terraform {
       source = "digitalocean/digitalocean"
     }
   }
+  required_version = ">= 0.13"
 }
 
 output "instance_ip_addr" {
