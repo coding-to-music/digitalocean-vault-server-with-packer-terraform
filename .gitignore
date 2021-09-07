@@ -1,5 +1,6 @@
 # packer
 variables.json
+variables.*
 
 # terraform
 **/.terraform/*
