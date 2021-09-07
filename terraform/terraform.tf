@@ -8,18 +8,67 @@ provider "digitalocean" {
   token = var.do_token
 }
 
+# create various droplets
+resource "digitalocean_droplet" "multi-01" {
+  name     = "multi-01"
+  image    = "ubuntu-20-04-x64"
+  region   = "nyc3"
+  size     = "s-1vcpu-1gb"
+  ssh_keys = [var.ssh_fingerprint]
+}
+
+resource "digitalocean_droplet" "grafana-01" {
+  name     = "grafana-01"
+  image    = "ubuntu-20-04-x64"
+  region   = "nyc3"
+  size     = "s-1vcpu-1gb"
+  ssh_keys = [var.ssh_fingerprint]
+}
+
+resource "digitalocean_droplet" "redis-01" {
+  name     = "redis-01"
+  image    = "ubuntu-20-04-x64"
+  region   = "nyc3"
+  size     = "s-1vcpu-1gb"
+  ssh_keys = [var.ssh_fingerprint]
+}
+
+resource "digitalocean_droplet" "influxdb-01" {
+  name     = "influxdb-01"
+  image    = "ubuntu-20-04-x64"
+  region   = "nyc3"
+  size     = "s-1vcpu-1gb"
+  ssh_keys = [var.ssh_fingerprint]
+}
+
+resource "digitalocean_droplet" "postgres-01" {
+  image    = "ubuntu-20-04-x64"
+  name     = "postgres-01"
+  region   = "nyc3"
+  size     = "s-1vcpu-1gb"
+  ssh_keys = [var.ssh_fingerprint]
+}
+
+resource "digitalocean_droplet" "mongodb-01" {
+  name     = "mongodb-01"
+  image    = "ubuntu-20-04-x64"
+  region   = "nyc3"
+  size     = "s-1vcpu-1gb"
+  ssh_keys = [var.ssh_fingerprint]
+}
+
 # create two demo droplets
 resource "digitalocean_droplet" "demo-01" {
-  image    = "ubuntu-20-04-x64"
   name     = "demo-01"
+  image    = "ubuntu-20-04-x64"
   region   = "nyc3"
   size     = "s-1vcpu-1gb"
   ssh_keys = [var.ssh_fingerprint]
 }
 
 resource "digitalocean_droplet" "demo-02" {
-  image    = "ubuntu-20-04-x64"
   name     = "demo-02"
+  image    = "ubuntu-20-04-x64"
   region   = "nyc3"
   size     = "s-1vcpu-1gb"
   ssh_keys = [var.ssh_fingerprint]

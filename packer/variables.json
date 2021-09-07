@@ -1,0 +1,6 @@
+{
+    "do_token": "e685670320eb6929f68d3f03d383354026d1602e1b3e1fcc24ff98c8ad072470",
+    "base_system_image": "ubuntu-21-04-x64",
+    "region": "nyc3",
+    "size": "s-1vcpu-1gb"
+  }
