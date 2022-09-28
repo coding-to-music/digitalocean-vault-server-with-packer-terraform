@@ -1,3 +1,48 @@
+# digitalocean-vault-server-with-packer-terraform
+
+# 🚀 How To Build a Hashicorp Vault Server Using Packer and Terraform on DigitalOcean 🚀
+
+https://github.com/coding-to-music/digitalocean-vault-server-with-packer-terraform
+
+From / By https://www.digitalocean.com/community/tutorials/how-to-build-a-hashicorp-vault-server-using-packer-and-terraform-on-digitalocean
+
+## Digitalocean Droplet Prices
+
+https://github.com/andrewsomething/do-api-slugs
+
+https://slugs.do-api.dev
+
+```
+# https://slugs.do-api.dev/
+
+# s-1vcpu-512mb-10gb  $4    10GB
+# s-1vcpu-1gb         $6    25GB
+# s-1vcpu-2gb         $12   50GB
+# s-2vcpu-2gb         $18   60GB
+# s-2vcpu-4gb         $24   80GB
+# s-4vcpu-8gb         $48   160GB
+```
+
+## Environment variables:
+
+```java
+
+```
+
+## user interfaces:
+
+## GitHub
+
+```java
+git init
+git add .
+git remote remove origin
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:coding-to-music/digitalocean-vault-server-with-packer-terraform.git
+git push -u origin main
+```
+
 # How To Build a Hashicorp Vault Server Using Packer and Terraform on DigitalOcean [Quickstart]
 
 https://www.digitalocean.com/community/tutorials/how-to-build-a-hashicorp-vault-server-using-packer-and-terraform-on-digitalocean-quickstart
@@ -7,7 +52,9 @@ Configuration Management Quickstart Terraform Automated Setups
 By Savic
 
 Published on March 9, 2020 7.3kviews
+
 ## Introduction
+
 Vault, by Hashicorp, is an open-source tool for securely storing secrets and sensitive data in dynamic cloud environments. Packer and Terraform, also developed by Hashicorp, can be used together to create and deploy images of Vault.
 
 In this tutorial, you’ll use Packer to create an immutable snapshot of the system with Vault installed, and orchestrate its deployment using Terraform.
@@ -30,32 +77,34 @@ ID          Name           FingerPrint
 ```
 
 ## Step 1 — Creating a Packer Template
+
 Create and move into the ~/vault-orchestration directory to store your Vault files:
 
 ```java
 mkdir ~/vault-orchestration
 cd ~/vault-orchestration
 ```
- 
+
 Create separate directories for Packer and Terraform configuration by running:
 
 ```java
 mkdir packer terraform
 ```
- 
+
 Navigate to the Packer directory:
 
 ```java
 cd packer
 ```
- 
+
 ## Using Template Variables
+
 Create a variables.json in your packer subdirectory to store your private variable data:
 
 ```java
 nano variables.json
 ```
- 
+
 Add the following lines:
 
 ~/vault-orchestration/packer/variables.json
@@ -68,18 +117,19 @@ Add the following lines:
   "size": "s-1vcpu-1gb"
 }
 ```
- 
+
 You’ll use these variables in the template you are about to create. You can edit the base image, region, and Droplet size values according to the developer docs.
 
 Replace your_do_api_key with your API key, then save and close the file.
 
 ## Creating Builders and Provisioners
+
 Create your Packer template for Vault in a file named template.json:
 
 ```java
 nano template.json
 ```
- 
+
 Add the following lines:
 
 ~/vault-orchestration/packer/template.json
@@ -110,7 +160,7 @@ Add the following lines:
 }]
 }
 ```
- 
+
 You define a single digitalocean builder. Packer will create a temporary Droplet of the defined size, image, and region using the provided API key.
 
 The provisioner will connect to it using SSH with the specified username and will sequentially execute all defined provisioners before creating a DigitalOcean Snapshot from the Droplet and deleting it.
@@ -124,7 +174,7 @@ Save and close the file.
 ```java
 packer validate -var-file=variables.json template.json
 ```
- 
+
 You’ll see the following output:
 
 ```java
@@ -133,12 +183,13 @@ Template validated successfully.
 ```
 
 ## Step 2 — Building the Snapshot
+
 Build your snapshot with the Packer build command:
 
 ```java
 packer build -var-file=variables.json template.json
 ```
- 
+
 You’ll see a lot of output, which will look like this:
 
 ```java
@@ -174,18 +225,19 @@ The last line contains the name of the snapshot (such as packer-1581537927) and 
 If the build process fails due to API errors, wait a few minutes and then retry.
 
 ## Step 3 — Writing Terraform Configuration
+
 Navigate to the terraform subdirectory:
 
 ```java
 cd ~/vault-orchestration/terraform
 ```
- 
+
 Create a file named `do-provider.tf` to store the provider:
 
 ```java
 nano do-provider.tf
 ```
- 
+
 Add the following lines:
 
 ~/vault-orchestration/terraform/do-provider.tf
@@ -222,7 +274,7 @@ provider "digitalocean" {
 token = var.do_token
 }
 ```
- 
+
 This file provides the digitalocean provider with an API key. To specify the values of these variables you’ll create a variable definitions file similarly to Packer. The filename must end in either `.tfvars` or `.tfvars.json`.
 
 Save and close the file.
@@ -232,7 +284,7 @@ Save and close the file.
 ```java
 nano definitions.tfvars
 ```
- 
+
 Add the following lines:
 
 ~/vault-orchestration/packer/definitions.tf
@@ -246,13 +298,13 @@ do_region        = "nyc3"
 do_size          = "s-1vcpu-1gb"
 instance_count   = 1
 ```
- 
+
 ## Create a variable definitions file for terraform:
 
 ```java
 nano definitions.tfvars
 ```
- 
+
 Add the following lines:
 
 ~/vault-orchestration/terraform/definitions.tf
@@ -266,7 +318,7 @@ do_region        = "nyc3"
 do_size          = "s-1vcpu-1gb"
 instance_count   = 1
 ```
- 
+
 Replace your_do_api_key, your_ssh_key_fingerprint, and your_do_snapshot_id (the snapshot ID you noted from the previous step). The do_region and do_size parameters must have the same values as in the Packer variables file.
 
 Save and close the file.
@@ -276,7 +328,7 @@ Save and close the file.
 ```java
 nano deployment.tf
 ```
- 
+
 Add the following lines:
 
 ~/vault-orchestration/terraform/deployment.tf
@@ -310,7 +362,7 @@ value = {
 description = "The IP addresses of the deployed instances, paired with their IDs."
 }
 ```
- 
+
 You define a single resource of the type digitalocean_droplet named vault. You set its parameters according to the variable values and add an SSH key (using its fingerprint) from your DigitalOcean account to the Droplet resource. You output the IP addresses of all newly deployed instances to the console.
 
 Save and close the file.
@@ -320,7 +372,7 @@ Save and close the file.
 ```java
 terraform init
 ```
- 
+
 You’ll see the following output:
 
 ```java
@@ -352,12 +404,13 @@ commands will detect it and remind you to do so if necessary.
 ```
 
 ## Step 4 — Deploying Vault Using Terraform
+
 Test the validity of your configuration:
 
 ```java
 terraform validate
 ```
- 
+
 You’ll see the following output:
 
 ```java
@@ -370,7 +423,7 @@ Run the plan command to see what Terraform will attempt when it comes to provisi
 ```java
 terraform plan -var-file="definitions.tfvars"
 ```
- 
+
 The output will look similar to:
 
 ```java
@@ -402,13 +455,12 @@ can't guarantee that exactly these actions will be performed if
 "terraform apply" is subsequently run.
 ```
 
-
 Execute the plan:
 
 ```java
 terraform apply -var-file="definitions.tfvars"
 ```
- 
+
 The Droplet will finish provisioning and you’ll see output similar to this:
 
 ```java
@@ -441,18 +493,19 @@ instance_ip_addr = {
 ```
 
 ## Step 5 — Verifying Your Deployed Droplet
+
 Run the following to connect to your new Droplet:
 
 ```java
 ssh root@your_server_ip
 ```
- 
+
 Once you are logged in, run Vault with:
 
 ```java
 vault
 ```
- 
+
 You’ll see its “help” output:
 
 ```java
@@ -488,10 +541,10 @@ Other commands:
 ```
 
 ## Conclusion
+
 You now have an automated system for deploying Hashicorp Vault on DigitalOcean Droplets using Terraform and Packer. To start using Vault, you’ll need to initialize it and further configure it. For instructions on how to do that, visit the official docs.
 
 For more tutorials using Terraform, check out our [Terraform content page](https://www.digitalocean.com/community/tags/terraform).
-
 
 # DigitalOcean Terraform and Ansible Demo
 
@@ -510,7 +563,6 @@ We will then use Ansible to run the following tasks on both Droplets:
 - Install the Nginx web server software
 - Install a demo `index.html` that shows Sammy and the Droplet's hostname
 
-
 ## Prerequisites
 
 You will need the following software installed to complete this demo:
@@ -524,7 +576,6 @@ You will need the following software installed to complete this demo:
 Finally, **you will need a personal access token for the DigitalOcean API**. You can find out more about the API and how to generate a token by reading [How To Use the DigitalOcean API v2](https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2)
 
 When you have the software, an SSH key, and an API token, proceed to the first step.
-
 
 ## Step 1 — Clone the Repository and Configure
 
@@ -580,7 +631,6 @@ terraform init
 
 You should get some output about initializing plugins. Now we're ready to provision the infrastructure and configure it.
 
-
 ## Step 2 — Run Terraform and Ansible
 
 We can provision the infrastructure with the following command:
@@ -634,7 +684,6 @@ terraform destroy
 ```
 
 This will delete everything we set up for the demo. Or, you could build upon this configuration to deploy your own web site or application! Read on for suggestions of further resources that might help.
-
 
 ## Conclusion
 

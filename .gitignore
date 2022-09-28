@@ -7,8 +7,31 @@ variables.*
 *.tfstate
 *.tfstate.*
 *.tfvars
+*.hcl
 
 # ansible
 secrets.yml
 *.retry
 inventory
+
+hosts
+
+.infracost
+
+*.swp
+*.swo
+*.idea
+.molecule
+.cache
+.pip-cache
+__pycache__/
+*.retry
+roles/*
+!roles/requirements.yml
+ara*
+.vault-password
+playbooks/files/random
+playbooks/files/rules/
+playbooks/files/dashboards/
+group_vars/grafana/vault
+
