@@ -73,7 +73,7 @@ For a more detailed version of this tutorial, please refer to How To Build a Has
 ```java
 doctl compute ssh-key list
 ID          Name           FingerPrint
-3069***    my-key-name    11:33:44:22:33:55:03:09:f5:57:f2:97:24:d8:0a:21
+3069***    my-key-name    will-be-here
 ```
 
 ## Step 1 — Creating a Packer Template
@@ -149,7 +149,6 @@ Add the following lines:
        "inline": [
            "sleep 30",
            "sudo apt-get update",
-           "sudo apt-get install cockpit",
            "sudo apt-get install unzip -y",
            "curl -L https://releases.hashicorp.com/vault/1.3.2/vault_1.3.2_linux_amd64.zip -o vault.zip",
            "unzip vault.zip",

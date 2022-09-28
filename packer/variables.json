@@ -1,6 +1,0 @@
-{
-    "do_token": "9d3d90a96c2c367ce302d092fffb8c2ff31c8fdea1e59714aac3798ed0d3b685",
-    "base_system_image": "ubuntu-21-04-x64",
-    "region": "nyc3",
-    "size": "s-1vcpu-1gb"
-  }

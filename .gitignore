@@ -1,5 +1,7 @@
 # packer
-variables.json
+**/packer/variables.json
+*/packer/variables.json
+packer-vars.json
 variables.*
 
 # terraform
